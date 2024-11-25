@@ -1,3 +1,5 @@
+[![PyPI version](https://badge.fury.io/py/api-chatbots.svg)](https://pypi.org/project/api-chatbots/)
+
 # API Chatbots
 A Python library that simplifies interactions with various Large Language Model APIs including ChatGPT, Claude, and Gemini.
 
