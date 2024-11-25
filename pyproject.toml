@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "api_chatbots"
-version = "0.1.2"
+version = "0.1.4"
 authors = [
     { name="Nicolas Gatien", email="nicolas.gatien6@gmail.com" },
 ]

@@ -20,3 +20,8 @@ chatbot.respond()
 # Get the latest message
 print(chatbot.get_latest_message())
 ```
+
+## Supported Models
+- ChatGPT
+- Claude
+
