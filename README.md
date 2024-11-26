@@ -36,6 +36,19 @@ tigers = prompt(Claude(api_key="your_api_key"), "Generate a paragraph about Tige
 print(tigers)
 ```
 
+### Loading API Keys From .env
+`api_chatbots` will pull OpenAI and Anthropic API keys from the `.env` file.
+```.env
+OPENAI_API_KEY='your-api-key'
+ANTHROPIC_API_KEY='your-api-key'
+```
+If the API key is set, you can declare a ChatGPT or Claude instance without directly passing the API key:
+```python
+bot = ChatGPT(api_key='your-api-key')
+# becomes:
+bot = ChatGPT()
+```
+
 ## Supported Models
 - ChatGPT
 - Claude
