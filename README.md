@@ -23,6 +23,19 @@ chatbot.respond()
 print(chatbot.get_latest_message())
 ```
 
+### Single Prompt Instances
+If you only need to prompt a chatbot once, you can use the `prompt` function instead of instantiating a full chatbot.
+
+```python
+from api_chatbots import prompt, ChatGPT, Claude
+
+turtles = prompt(ChatGPT(api_key="your_api_key"), "Generate a paragraph about Turtles")
+print(turtles)
+
+tigers = prompt(Claude(api_key="your_api_key"), "Generate a paragraph about Tigers")
+print(tigers)
+```
+
 ## Supported Models
 - ChatGPT
 - Claude

@@ -1,7 +1,7 @@
 from openai import OpenAI
 from anthropic import Anthropic
 from abc import ABC, abstractmethod
-
+from copy import deepcopy
 class ChatBotInterface(ABC):
     @abstractmethod
     def add_user_message(self, message: str):
@@ -24,6 +24,7 @@ class ChatGPT(ChatBotInterface):
         self.api_key = api_key
         self.client = OpenAI(api_key=api_key)
         self.context = []
+        self.system_prompt = system_prompt
         self.add_system_message(system_prompt)
         self.model = model
 
@@ -84,3 +85,13 @@ class Claude(ChatBotInterface):
     
     def get_latest_message(self):
         return self.context[-1]["content"]
+
+def prompt(chatbot: ChatBotInterface, prompt: str):
+    new_instance = chatbot.__class__(
+        api_key=chatbot.api_key,
+        system_prompt=chatbot.system_prompt,
+        model=chatbot.model
+    )
+    new_instance.context = chatbot.context.copy()
+    new_instance.add_user_message(prompt)
+    return new_instance.respond()
