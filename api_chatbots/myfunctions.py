@@ -1,7 +1,9 @@
 from openai import OpenAI
 from anthropic import Anthropic
 from abc import ABC, abstractmethod
-from copy import deepcopy
+from dotenv import load_dotenv
+import os
+
 class ChatBotInterface(ABC):
     @abstractmethod
     def add_user_message(self, message: str):
@@ -20,7 +22,12 @@ class ChatBotInterface(ABC):
         pass
 
 class ChatGPT(ChatBotInterface):
-    def __init__(self, api_key: str, system_prompt: str = "You are a helpful assistant.", model: str = "gpt-4o-mini"):
+    def __init__(self, api_key: str = None, system_prompt: str = "You are a helpful assistant.", model: str = "gpt-4o-mini"):
+        if api_key is None:
+            load_dotenv()
+            api_key = os.getenv('OPENAI_API_KEY')
+            if api_key is None:
+                raise ValueError("No API key provided and OPENAI_API_KEY not found in environment variables")
         self.api_key = api_key
         self.client = OpenAI(api_key=api_key)
         self.context = []
@@ -55,7 +62,12 @@ class ChatGPT(ChatBotInterface):
         return self.context[-1]["content"]
     
 class Claude(ChatBotInterface):
-    def __init__(self, api_key: str, system_prompt: str = "You are a helpful assistant.", model: str = "claude-3-5-sonnet-20240620"):
+    def __init__(self, api_key: str = None, system_prompt: str = "You are a helpful assistant.", model: str = "claude-3-5-sonnet-20240620"):
+        if api_key is None:
+            load_dotenv()
+            api_key = os.getenv('ANTHROPIC_API_KEY')
+            if api_key is None:
+                raise ValueError("No API key provided and ANTHROPIC_API_KEY not found in environment variables")
         self.api_key = api_key
         self.client = Anthropic(api_key=api_key)
         self.system_prompt = system_prompt
